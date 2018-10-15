@@ -1,4 +1,4 @@
-package com.wzy.demo.service;
+package com.wzy.demo.Model;
 
 import java.io.Serializable;
 
@@ -16,7 +16,7 @@ public class user implements Serializable {
         return id;
     }
 
-    public String getUsername() {
+    public String getName() {
         return name;
     }
 
@@ -28,7 +28,7 @@ public class user implements Serializable {
         this.id = id;
     }
 
-    public void setUsername(String username) {
+    public void setName(String username) {
         this.name = username;
     }
 
