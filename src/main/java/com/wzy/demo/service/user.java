@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class user implements Serializable {
     private static final long serialVersionUID=1000L;
     private String id;
-    private String username;
+    private String name;
     private String password;
 
     public static long getSerialVersionUID() {
@@ -17,7 +17,7 @@ public class user implements Serializable {
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
     public String getPassword() {
@@ -29,7 +29,7 @@ public class user implements Serializable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.name = username;
     }
 
     public void setPassword(String password) {
