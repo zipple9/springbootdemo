@@ -1,4 +1,4 @@
-package com.wzy.demo;
+package com.wzy.demo.Config;
 
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
