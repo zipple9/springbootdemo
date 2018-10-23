@@ -1,12 +1,15 @@
 package com.wzy.demo.Model;
 
 import java.io.Serializable;
+import java.util.Set;
 
-public class user implements Serializable {
+public class User implements Serializable {
     private static final long serialVersionUID=1000L;
     private String id;
     private String name;
     private String password;
+    private String salt;
+    private Set<role> roles;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -34,5 +37,14 @@ public class user implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+
+
+
+
+    public User(){
+
     }
 }
