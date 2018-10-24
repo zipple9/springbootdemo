@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -36,16 +38,36 @@ public class LoginController {
 //        return "/error/loginerror.html";
 //    }
 
-    @GetMapping("/login")
-    public String loginPage(){
+    @RequestMapping(value = "/loginPage")
+    public void login(HttpServletRequest request) throws Exception{
         System.out.println("/"+Thread.currentThread().getStackTrace()[1].getMethodName());
 
-        return "authentication.html";
+        HttpSession session=request.getSession();
+
+        try{
+            String sessionId=session.getId();
+            if (session.isNew()) {
+                System.out.println("session创建成功，session的id是："+sessionId);
+            }
+            else {
+                System.out.println("服务器已经存在该session了，session的id是："+sessionId);
+            }
+
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("没有拿到sessionId");
+        }
+
+//        return "loginPage";
     }
-    @PostMapping("/login")
-    public String login(){
+
+
+
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
         System.out.println("/"+Thread.currentThread().getStackTrace()[1].getMethodName());
-        return "hello.html";
+        request.getSession(false).invalidate();
+        return "/home";
     }
 
 }

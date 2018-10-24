@@ -20,15 +20,22 @@ public class mainController {
     @RequestMapping(value={"/","/home","/index"})
     public String home(){
         System.out.println("/home");
-        return "index.html";
+        return "home";
     }
 
     @RequestMapping("/hello")
     public String hello(){
         System.out.println("/hello");
 
-        return "hello.html";
+        return "hello";
     }
+//    @RequestMapping("/loginPage")
+//    public String loginPage(){
+//        System.out.println("/"+Thread.currentThread().getStackTrace()[1].getMethodName());
+//
+//        return "loginPage";
+//    }
+
 
 
 
