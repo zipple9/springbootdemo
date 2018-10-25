@@ -43,6 +43,9 @@ public class LoginController {
         System.out.println("/"+Thread.currentThread().getStackTrace()[1].getMethodName());
 
         HttpSession session=request.getSession();
+        request.getParameter("username");
+        request.getParameter("password");
+
 
         try{
             String sessionId=session.getId();
