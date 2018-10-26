@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
@@ -23,9 +24,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private LoginFailureHandler loginFailureHandler;
-
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+        //应对DB中密码未加密的情况
+    }
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.userDetailsService(myUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(myUserDetailsService); //DB中密码为加密，此处暂时不加密
+
+        //使用我们实现的uds
+        //Spring Security5 要求密码必须加密
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()
                 .loginPage("/loginPage").successHandler(loginSuccessHandler).failureHandler(loginFailureHandler)
                 .and()
-            .logout().logoutUrl("/home")
+            .logout().permitAll().logoutUrl("/home")
                 .and()
             .csrf()
                 .disable() // 关闭csrf
@@ -49,11 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .permitAll();
 
     }
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-                .withUser("user").password(new BCryptPasswordEncoder().encode("111111")).roles("USER");
-    }
+//    @Autowired
+//    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+//        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+//                .withUser("user").password(new BCryptPasswordEncoder().encode("111111")).roles("USER");
+//    }
 
 
 

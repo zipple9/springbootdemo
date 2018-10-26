@@ -3,7 +3,7 @@ package com.wzy.demo.Model;
 /**
  * Created by wzy on 2018/10/15 14:14
  **/
-public class role {
+public class Role {
     private int id;
     private String name;
 

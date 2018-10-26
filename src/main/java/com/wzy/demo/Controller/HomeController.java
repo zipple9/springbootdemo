@@ -38,7 +38,14 @@ public class HomeController {
 
     @RequestMapping("/test")
     public String test(){
-        return um.getPassword("zhang3");
+        System.out.println("/" + Thread.currentThread().getStackTrace()[1].getMethodName());
+//        Set<String> roleset=um.getRolesByUsername("zhang3");
+//        for(String st:roleset){
+//            System.out.println(st);
+//        }
+
+        return um.getUserByUsername("zhang3").getRoles().iterator().next().getName();
+
 //        return dao.getPassword("zhang3");
     }
 

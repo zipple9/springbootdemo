@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 public class mainController {
 
 
-    @RequestMapping(value={"/","/home","/index"})
-    public String home(){
+    @RequestMapping(value = {"/", "/home", "/index"})
+    public String home() {
         System.out.println("/home");
         return "home";
     }
 
     @RequestMapping("/hello")
-    public String hello(){
+    public String hello() {
         System.out.println("/hello");
 
         return "hello";
@@ -37,8 +37,6 @@ public class mainController {
 //    }
 
 
-
-
     public User getUser() { //为了session从获取用户信息,可以配置如下
         User us = new User();
         SecurityContext sctx = SecurityContextHolder.getContext();
@@ -47,4 +45,12 @@ public class mainController {
         return us;
     }
 
+    @RequestMapping("/test")
+    public String test() {
+        System.out.println("/" + Thread.currentThread().getStackTrace()[1].getMethodName());
+
+        return "hello";
+
+
+    }
 }

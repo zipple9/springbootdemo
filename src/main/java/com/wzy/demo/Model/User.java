@@ -9,10 +9,16 @@ public class User implements Serializable {
     private String name;
     private String password;
     private String salt;
-    private Set<role> roles;
+    private Set<Role> roles;      //用户的角色  如admin  user 等
+    private Set<String> authorities;     //用户的权限 即permission 包括用户可以执行的操作 ，如addOrder等
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
+    }
+
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
     public String getId() {
@@ -39,6 +45,13 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String name,String password,String id,Set<Role> roles){
+        this.id=id;
+        this.name=name;
+        this.password=password;
+        this.roles=roles;
+
+    } // 构造函数
 
 
 

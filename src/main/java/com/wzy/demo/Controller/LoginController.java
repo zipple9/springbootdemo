@@ -39,29 +39,29 @@ public class LoginController {
 //    }
 
     @RequestMapping(value = "/loginPage")
-    public void login(HttpServletRequest request) throws Exception{
+    public String login(HttpServletRequest request) throws Exception{
         System.out.println("/"+Thread.currentThread().getStackTrace()[1].getMethodName());
 
-        HttpSession session=request.getSession();
-        request.getParameter("username");
-        request.getParameter("password");
+//        HttpSession session=request.getSession();
+//        request.getParameter("username");
+//        request.getParameter("password");
+//
+//
+//        try{
+//            String sessionId=session.getId();
+//            if (session.isNew()) {
+//                System.out.println("session创建成功，session的id是："+sessionId);
+//            }
+//            else {
+//                System.out.println("服务器已经存在该session了，session的id是："+sessionId);
+//            }
+//
+//        }catch (Exception e){
+//            System.out.println(e);
+//            System.out.println("没有拿到sessionId");
+//        }
 
-
-        try{
-            String sessionId=session.getId();
-            if (session.isNew()) {
-                System.out.println("session创建成功，session的id是："+sessionId);
-            }
-            else {
-                System.out.println("服务器已经存在该session了，session的id是："+sessionId);
-            }
-
-        }catch (Exception e){
-            System.out.println(e);
-            System.out.println("没有拿到sessionId");
-        }
-
-//        return "loginPage";
+        return "loginPage";
     }
 
 
