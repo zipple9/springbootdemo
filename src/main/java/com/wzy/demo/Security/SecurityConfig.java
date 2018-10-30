@@ -29,6 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
+
+
+//    @Bean
+//    public Md5PasswordEncoder passwordEncoder() {
+//        return new Md5PasswordEncoder();
+//    }　　　　//设置加密方式
+
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();

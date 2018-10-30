@@ -1,17 +1,8 @@
 package com.wzy.demo;
 
 
-import com.wzy.demo.Dao.Dao;
-import com.wzy.demo.Dao.userMapper;
-import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mybatis.spring.mapper.MapperFactoryBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import com.wzy.demo.service;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 
 import java.util.HashSet;
@@ -29,7 +20,7 @@ public class test {
     public void test1(){
 
     }
-
+    AbstractAuthenticationProcessingFilter .
     public static void main(String[] args){
         Set s=new HashSet();
         s.add(1);
