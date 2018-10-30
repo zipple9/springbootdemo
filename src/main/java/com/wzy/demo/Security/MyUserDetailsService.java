@@ -37,6 +37,7 @@ public class MyUserDetailsService implements UserDetailsService {
 //            System.out.println(role.getName());
         }
         System.out.println(authorities.size());
+        System.out.println(us.getPassword());
 
         return new User(us.getUsername(),us.getPassword(), authorities);
     }

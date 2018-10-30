@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 //        auth.userDetailsService(myUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-        auth.userDetailsService(myUserDetailsService); //DB中密码为加密，此处暂时不加密
+        auth.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder()); //DB中密码为加密，此处暂时不加密
 
         //使用我们实现的uds
         //Spring Security5 要求密码必须加密
