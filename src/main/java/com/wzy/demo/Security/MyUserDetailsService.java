@@ -3,11 +3,16 @@ package com.wzy.demo.Security;
 import com.wzy.demo.Dao.MyDao;
 import com.wzy.demo.Model.Role;
 import com.wzy.demo.Model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -17,6 +22,9 @@ import java.util.*;
  **/
 @Component
 public class MyUserDetailsService implements UserDetailsService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     MyDao md;
@@ -36,8 +44,8 @@ public class MyUserDetailsService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
 //            System.out.println(role.getName());
         }
-        System.out.println(authorities.size());
-        System.out.println(us.getPassword());
+//        System.out.println(authorities.size());
+//        System.out.println(us.getPassword());
 
         return new User(us.getUsername(),us.getPassword(), authorities);
     }

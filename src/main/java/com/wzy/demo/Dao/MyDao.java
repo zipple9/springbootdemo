@@ -21,4 +21,6 @@ public interface MyDao {
     User getUserByUsername(@Param("username") String username);
 
     String getPassword(@Param("username") String username);
+
+    void updatePassword(@Param("password") String password,@Param("username") String username);
 }

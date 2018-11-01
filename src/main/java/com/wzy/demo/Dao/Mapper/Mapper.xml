@@ -34,5 +34,10 @@
     select password from user where username=#{username}
 </select>
 
+<update id="updatePassword" parameterType="String">
+    update user set password = #{password} where username=#{username}
+</update>
+
+
 
 </mapper>

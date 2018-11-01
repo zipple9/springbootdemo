@@ -2,12 +2,14 @@ package com.wzy.demo;
 
 
 import org.junit.Test;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,6 +36,10 @@ public class test {
         return hexValue.toString();
 
     }
+
+
+
+
     public void main(String args[]){
     }
 }

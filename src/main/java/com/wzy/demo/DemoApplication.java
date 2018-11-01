@@ -10,13 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        try{
-            System.out.println(new test().toMD5("123456"));
-        }catch (Exception e){}
-
-
-
-
         SpringApplication.run(DemoApplication.class, args);
     }
 }
