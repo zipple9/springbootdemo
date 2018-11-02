@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,6 @@ import java.util.List;
 @EnableWebSecurity     //这个是springsecurity的注解
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private LoginFailureHandler loginFailureHandler;
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;
     @Autowired
@@ -54,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         List<AccessDecisionVoter<? extends Object>> list=new ArrayList<>();
         list.add(roleVoter());
         list.add(authenticatedVoter());
+        list.add(webExpressionVoter());
         return new AffirmativeBased(list);
     }
     @Bean
@@ -66,6 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         rv.setRolePrefix("");
         return  rv;
     }
+    @Bean   //不知道什么原因，加了这个Bean 就不报错了
+    public WebExpressionVoter webExpressionVoter(){return new WebExpressionVoter();}
 
 
 //    @Bean

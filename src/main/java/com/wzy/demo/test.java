@@ -2,7 +2,9 @@ package com.wzy.demo;
 
 
 import org.junit.Test;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 
@@ -41,5 +43,8 @@ public class test {
 
 
     public void main(String args[]){
+//        new ProviderManager();
+//        DaoAuthenticationProvider
+//        SecurityContextHolder
     }
 }

@@ -1,3 +1,5 @@
+import org.springframework.security.authentication.AuthenticationManager;
+
 //package com.wzy.demo.Security;
 //
 //import com.wzy.demo.Dao.userMapper;
