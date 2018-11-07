@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- 配置无须权限拦截的url -->
+    <!--<security:http pattern="/css/**" security="none"/>-->
+    <!--<security:http pattern="/fonts/**" security="none"/>-->
+    <!--<security:http pattern="/images/**" security="none"/>-->
+    <!--<security:http pattern="/js/**" security="none"/>-->
+    <!--<security:http pattern="/errorPages/**" security="none"/>-->
+    <!--<security:http pattern="/favicon.ico" security="none"/>-->
+    <!--<security:http pattern="/login.do" security="none"/>-->
+    <!--<security:http pattern="/index.htm" security="none"/>-->
+    <!--<security:http pattern="/index.html" security="none"/>-->
+    <!--<security:http pattern="/index.jsp" security="none"/>-->
+
+
+    <sec:http pattern="/loginPage" security="none"/>
+
+    <!-- 定义custom-filter or AuthenticationEntryPoint or 定义AccessDecisionManager等等情况，auto-config已经失效 -->
+    <sec:http access-decision-manager-ref="accessDecisionManager" auto-config="true">
+        <!--关闭csrf-->
+        <sec:csrf disabled="true"/>
+
+        <!--具体页面拦截规则-->
+        <sec:intercept-url pattern="/hello" access="hasAnyAuthority()"/>
+
+
+        <sec:form-login login-page="/loginPage"
+                        default-target-url="/hello"
+                        authentication-failure-url="//error/loginerror.html"
+                        always-use-default-target="true" />
+
+    </sec:http>
+    <!-- AccessDecisionManager相关配置 提供访问权限的判断 -->
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg index="0">
+            <list>
+                <ref bean="roleVoter" />
+                <ref bean="authenticatedVoter" />
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <description>通过Role来投票</description>
+        <property name="rolePrefix" value=""></property><!-- 将授权名称的默认前缀由ROLE_改为空. -->
+    </bean>
+    <bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter">
+        <description>这个投票机制支持：IS_AUTHENTICATED_FULLY,IS_AUTHENTICATED_REMEMBERED,IS_AUTHENTICATED_ANONYMOUSLY三种方式的特殊投票</description>
+    </bean>
+
+
+    <!-- AuthenticationManager相关配置 -->
+    <!--<bean id="authenticationManager" name="org.springframework.security.authenticationManager" class="org.springframework.security.authentication.ProviderManager">-->
+        <!--<property name="authenticationEventPublisher">-->
+            <!--<bean id="defaultAuthenticationEventPublisher" class="org.springframework.security.authentication.DefaultAuthenticationEventPublisher"/>-->
+        <!--</property>-->
+        <!--<constructor-arg index="0">-->
+            <!--<list>-->
+                <!--<description>如果需要使用remember-me功能，需要再定义RememberMeAuthenticationProvider认证</description>-->
+                <!--<ref bean="daoAuthenticationProvider" />-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
+
+
+
+
+
+    <!-- AuthenticationProviders相关配置,用于AuthenticationManager鉴定用户-->
+    <!--<bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">-->
+        <!--<property name="userCache" ref="echCacheUserCache"></property>-->
+        <!--<property name="passwordEncoder" ref="md5Encoder"></property>-->
+        <!--<property name="saltSource" ref="saltSource"></property>-->
+        <!--<property name="userDetailsService" ref="userDetailService"></property>-->
+        <!--&lt;!&ndash; 用户不存在时，不要报UsernameNotFoundException异常，而是抛BadCredentialsException异常，提高安全性 &ndash;&gt;-->
+        <!--<property name="hideUserNotFoundExceptions" value="true"></property>-->
+    <!--</bean>-->
+
+    <!-- 自定义安全拦截器配置 -->
+    <!--<bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">-->
+        <!--<property name="authenticationManager" ref="authenticationManager" />-->
+        <!--<property name="accessDecisionManager" ref="accessDecisionManager" />-->
+        <!--<property name="securityMetadataSource" ref="defaultSecurityMetadaSource" />-->
+        <!--&lt;!&ndash; 注意:若设置为true（默认：false），凡是没有配置的路径，都将被拒绝访问，开发阶段设置为true，可以逼迫开发人员及时的-->
+        <!--向数据库中配置新增的url，避免遗漏，运营的时候可以考虑是否开放权限的访问 &ndash;&gt;-->
+        <!--<property name="rejectPublicInvocations" value="false"></property>-->
+    <!--</bean>-->
+    <!--<bean id="defaultSecurityMetadaSource" class="com.u9.security.intercept.SecurityMetadataSourceFactoryBean">-->
+        <!--<property name="cacheManager" ref="securityMetadataSourceCacheManager"/>-->
+    <!--</bean>-->
+    <!--<bean id="securityMetadataSourceCacheManager" class="com.u9.security.core.SecurityMetadataSourceCacheManager" init-method="init">-->
+        <!--<property name="resCache" ref="resourceCache"/>-->
+    <!--</bean>-->
+
+    <!-- ehcache缓存配置 -->
+    <!--<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">-->
+        <!--<property name="configLocation" value="classpath:ehcache/ehcache-dev.xml" />-->
+    <!--</bean>-->
+
+    <!-- UserDetailsService相关配置-->
+    <!--<bean id="echCacheUserCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache" >-->
+        <!--<property name="cache">-->
+            <!--<bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">-->
+                <!--<property name="cacheManager" ref="cacheManager" />-->
+                <!--<property name="cacheName" value="userCache" />-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean id="resourceCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">-->
+        <!--<property name="cacheManager" ref="cacheManager" />-->
+        <!--<property name="cacheName" value="resourceCache" />-->
+    <!--</bean>-->
+
+    <!-- ================== 附加配置 =================== -->
+    <!--<bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">-->
+        <!--<description>加密的方式：密码{盐值}   注意，这里盐值的两端是有大括号的,另外最终取得的MD5值是区分大小写的MessageDigestPasswordEncoder.encodePassword</description>-->
+        <!--<property name="userPropertyToUse" value="salt"></property>-->
+    <!--</bean>-->
+    <!--<bean id="md5Encoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"></bean>-->
+
+    <!--<bean id="userDetailService" class="com.u9.security.core.EhcacheUserDetailsService">-->
+        <!--<property name="rolePrefix" value=""></property>-->
+    <!--</bean>-->
+    <!--<bean id="u9AuthenticationSuccessHandler" class="com.u9.security.authentication.U9AuthenticationSuccessHandler">-->
+        <!--<property name="targetUrlParameter" value="u9_target_url"></property>-->
+        <!--<property name="defaultTargetUrl" value="/home.do"></property>-->
+        <!--<property name="alwaysUseDefaultTargetUrl" value="false"></property>-->
+    <!--</bean>-->
+</beans>

@@ -108,9 +108,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logout().permitAll().logoutUrl("/home")
                 .and()
             .csrf()
-                .disable() // 关闭csrf
-            .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .disable(); // 关闭csrf
+//            .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //            .logout()
 //                .permitAll();
 
